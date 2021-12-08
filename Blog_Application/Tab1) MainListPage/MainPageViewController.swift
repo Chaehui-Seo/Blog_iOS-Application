@@ -400,11 +400,12 @@ extension MainPageViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let writeVC = storyboard.instantiateViewController(withIdentifier: "SpecificPostViewController") as? SpecificPostViewController else { return }
-        FeedViewModel.shared.selectedFeedInfo = FeedViewModel.shared.feedInfo[indexPath.item]
         collectionView.deselectItem(at: indexPath, animated: true)
-        self.navigationController?.pushViewController(writeVC, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let specificVC = storyboard.instantiateViewController(withIdentifier: "SpecificPostViewController") as? SpecificPostViewController else { return }
+        FeedViewModel.shared.selectedFeedInfo = FeedViewModel.shared.feedInfo[indexPath.item]
+        specificVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(specificVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
